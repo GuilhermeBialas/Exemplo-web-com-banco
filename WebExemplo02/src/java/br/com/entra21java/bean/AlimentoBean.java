@@ -13,12 +13,12 @@ public class AlimentoBean {
     private int id;
     private String nome, descricao;
 
-    public String getDescicao() {
+    public String getDescricao() {
         return descricao;
     }
 
-    public void setDescicao(String descicao) {
-        this.descricao = descicao;
+    public void setDescicao(String descricao) {
+        this.descricao = descricao;
     }
     private byte quantidade;
     private double preco;

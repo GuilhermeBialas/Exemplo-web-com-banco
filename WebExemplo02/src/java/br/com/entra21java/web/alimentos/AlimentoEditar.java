@@ -5,6 +5,8 @@
  */
 package br.com.entra21java.web.alimentos;
 
+import br.com.entra21java.bean.AlimentoBean;
+import br.com.entra21java.dao.AlimentoDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,20 +19,24 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Guilherme Bialas
  */
-@WebServlet(urlPatterns = "/alimentos/cadastro")
-public class AlimentoCadastro extends HttpServlet {
+@WebServlet(urlPatterns = "/alimentos/editar")
+public class AlimentoEditar extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        
+        int id= Integer.parseInt(req.getPatrameter("id"));
+        AlimentoBean alimento = new AlimentoDAO().obterPeloId(id);
         PrintWriter out = resp.getWriter();
-        out.println("<!DOCTYPE html>");
+         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Alimentos - Cadastro</title>");
+        out.println("<title>Alimentos - Editar</title>");
         out.println("</head>");
-        out.println("<Link rel ='stylesheet'type'text/css' " + "href='alimentos-index.css'>");
         out.println("<body>");
-        out.println("<form action='/alimentos/store' method='post'>");
+        out.println("<form action='/alimentos/update' method='post'>");
+        out.println("<input type='hidden' name='id' value='1'>");
         out.println("<div>");
         out.println("<label for='campo-nome'>Name</label>");
         out.println("<input type='text' id='campo-nome' name='nome'>");
@@ -48,11 +54,10 @@ public class AlimentoCadastro extends HttpServlet {
         out.println("<textarea id='campo-descricao' name='descricao'>");
         out.println("</textarea>");
         out.println("</div>");
-        out.println("<input type='submit' value='Cadastrar'>");
+        out.println("<input type='submit' value='Alterar'>");
         out.println("</form>");
         out.println("</body>");
         out.println("</html>");
-
     }
 
 }

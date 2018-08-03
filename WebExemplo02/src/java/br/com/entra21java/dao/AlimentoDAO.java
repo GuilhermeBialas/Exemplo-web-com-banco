@@ -53,7 +53,7 @@ public class AlimentoDAO {
             ps.setString(quantidade++, alimento.getNome());
             ps.setByte(quantidade++, alimento.getQuantidade());
             ps.setDouble(quantidade++, alimento.getPreco());
-            ps.getString(quantidade++, alimento.getDescricao());
+            ps.setString(quantidade++, alimento.getDescricao());
             ps.execute();
             ResultSet resultSet = ps.getGeneratedkeys();
             if (resultSet.next()) {
@@ -66,5 +66,20 @@ public class AlimentoDAO {
         }finally{
             Conexao.fecharConexao();
         }return -1;
+    }
+    
+    public boolean excluir(int id){
+        String sql = "DELETE FROM alimentos WHERE id = ?";
+        try{
+            PreparedStatement ps = Conexao.obterConexao().prepareStatement(sql);
+            ps.setInt(1, id);
+        return ps.executeUpdate() == 1;
+        
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally{
+            Conexao.fecharConexao();
+        }
+    return false;
     }
 }

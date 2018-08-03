@@ -37,6 +37,7 @@ public class AlimentoIndex extends HttpServlet {
         out.println("<body>");
         out.println("");
         out.println("<h3>Lista de Alimentos</h3>");
+        out.println("<a href='/WebExemplo02/alimentos/cadastro' class='botao-cadstro'>NovoAçimento</>");
         out.println("<table>");
         out.println("<thead>");
         out.println("<tr>");
@@ -55,7 +56,13 @@ public class AlimentoIndex extends HttpServlet {
         out.println("<td>"+ alimento.getNome()+"</td>");
         out.println("<td>"+ alimento.getQuantidade() +"</td>");
         out.println("<td>"+ alimento.getPreco()+"</td>");
-        out.println("<td></td>");
+        out.println("<td>");
+        out.println("<a href'/WebExemplo02/alimentos/editar?id="+alimento.getId()+"'class='botao-editar'>Editar</a>");
+        out.println("<a href'/WebExemplo02/alimentos/excluir?id="+alimento.getId()+"'class='botao-excluir'>Excluir</a>");
+        
+        
+        
+        out.println("</td>");
         out.println("</tr>");
         
         }
