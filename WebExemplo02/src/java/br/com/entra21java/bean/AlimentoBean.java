@@ -11,7 +11,15 @@ package br.com.entra21java.bean;
  */
 public class AlimentoBean {
     private int id;
-    private String nome;
+    private String nome, descricao;
+
+    public String getDescicao() {
+        return descricao;
+    }
+
+    public void setDescicao(String descicao) {
+        this.descricao = descicao;
+    }
     private byte quantidade;
     private double preco;
 

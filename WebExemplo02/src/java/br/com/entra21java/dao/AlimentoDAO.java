@@ -7,6 +7,7 @@ package br.com.entra21java.dao;
 
 import br.com.entra21java.bean.AlimentoBean;
 import br.com.entra21java.database.Conexao;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,32 +16,55 @@ import java.util.List;
 
 /**
  *
- * @author Alunos
+ * @author Guilherme Bialas
  */
 public class AlimentoDAO {
-    public List<AlimentoBean> obterTodos(){
-        List<AlimentoBean>alimentos = new ArrayList<>();
+
+    public List<AlimentoBean> obterTodos() {
+        List<AlimentoBean> alimentos = new ArrayList<>();
         String sql = "SELECT * FROM alimentos";
-        try{
+        try {
             Statement st = Conexao.obterConexao().createStatement();
             st.execute(sql);
             ResultSet resultSet = st.getResultSet();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 AlimentoBean alimento = new AlimentoBean();
                 alimento.setId(resultSet.getInt("id"));
                 alimento.setNome(resultSet.getString("nome"));
                 alimento.setPreco(resultSet.getDouble("preco"));
                 alimento.setQuantidade(resultSet.getByte("quantidade"));
-                alimentos.add(alimento);               
+                alimentos.add(alimento);
             }
-        
-        }catch (SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             Conexao.fecharConexao();
         }
-        
+
         return alimentos;
     }
-    
+
+    public int adicionar(AlimentoBean alimento) {
+        String sql = "INSERT INTO alimentos (nome,quantidade, preco, descricao)VALUES(?,?,?,?)";
+        try {
+            PreparedStatement ps = Conexao.obterConexao().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            int quantidade = 1;
+            ps.setString(quantidade++, alimento.getNome());
+            ps.setByte(quantidade++, alimento.getQuantidade());
+            ps.setDouble(quantidade++, alimento.getPreco());
+            ps.getString(quantidade++, alimento.getDescricao());
+            ps.execute();
+            ResultSet resultSet = ps.getGeneratedkeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            
+        }finally{
+            Conexao.fecharConexao();
+        }return -1;
+    }
 }

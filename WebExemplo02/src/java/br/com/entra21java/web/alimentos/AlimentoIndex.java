@@ -28,6 +28,51 @@ public class AlimentoIndex extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<AlimentoBean> alimentos = new AlimentoDAO.obterTodos();
         PrintWriter out = resp.getWriter();
+
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Alimentos - Lista</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("");
+        out.println("<h3>Lista de Alimentos</h3>");
+        out.println("<table>");
+        out.println("<thead>");
+        out.println("<tr>");
+        out.println("<th>Código</th>");
+        out.println("<th>Nome</th>");
+        out.println("<th>Quantidade</th>");
+        out.println("<th>Preço</th>");
+        out.println("<th>Ação</th>");
+        out.println("</tr>");
+        out.println("</thead>");
+        out.println("<tbody>");
+      
+        for(AlimentoBean alimento: alimentos){
+        out.println("<tr>");
+        out.println("<td>"+ alimento.getId()+"</td>");
+        out.println("<td>"+ alimento.getNome()+"</td>");
+        out.println("<td>"+ alimento.getQuantidade() +"</td>");
+        out.println("<td>"+ alimento.getPreco()+"</td>");
+        out.println("<td></td>");
+        out.println("</tr>");
+        
+        }
+        out.println("</tbody>");
+        out.println("<tfoot>");
+        out.println("<tr>");
+        out.println("<td>Código</td>");
+        out.println("<td>Nome</td>");
+        out.println("<td>Quantidade</td>");
+        out.println("<td>Preço</td>");
+        out.println("<td>Ação</td>");
+        out.println("</tr>");
+        out.println("</tfoot>");
+        out.println("</table>");
+        out.println("");
+        out.println("</body>");
+        out.println("</html>");
     }
 
 }
